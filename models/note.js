@@ -21,9 +21,7 @@ const noteSchema = new mongoose.Schema({
   date: {
     type:Date,
     required:true,
-  },
-  // _id: { type: mongoose.Schema.Types.ObjectId}
-  // _id: String
+  }
 })
 
 noteSchema.set('toJSON', {

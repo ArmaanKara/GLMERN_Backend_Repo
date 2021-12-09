@@ -74,14 +74,11 @@ app.get('/api/notes/:id', (request, response, next) => {
 
 app.delete('/api/notes/:id', async (request, response, next) => {
   const id = request.params.id
-  // await Note.findByIdAndRemove(id).exec()
-  // response.send("item deleted")
   Note.findByIdAndRemove(id).exec()
     .then(result => {
       response.send(`Deleted`).end()
     })
-    .catch(error => next(`${error} : 'error here'`))
-// })
+    .catch(error => next(`${error} : ERROR HERE FIGURE IT OUT!`))
 })
 
 app.put('/api/notes/:id', (request, response, next) => {
@@ -89,7 +86,6 @@ app.put('/api/notes/:id', (request, response, next) => {
 
   const note = {
     content: body.content,
-    // important: body.important,
   }
 
   Note.findByIdAndUpdate(request.params.id, note, { new: true })
