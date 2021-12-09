@@ -81,18 +81,26 @@ app.delete('/api/notes/:id', async (request, response, next) => {
     .catch(error => next(`${error} : ERROR HERE FIGURE IT OUT!`))
 })
 
-app.put('/api/notes/:id', (request, response, next) => {
-  const body = request.body
+app.put('/api/notes/:id', async (request, response, next) => {
+  // const body = request.body
 
-  const note = {
-    content: body.content,
-  }
+  // const note = {
+  //   content: body.content,
+  // }
 
-  Note.findByIdAndUpdate(request.params.id, note, { new: true })
-    .then(updatedNote => {
-      response.json(updatedNote)
-    })
-    .catch(error => next(error))
+  // Note.findByIdAndUpdate(request.params.id, note, { new: true })
+  //   .then(updatedNote => {
+  //     response.json(updatedNote)
+  //   })
+  //   .catch(error => next(error))
+  const note = await Note.findById(request.params.id);
+
+	note.text = request.body.text;
+
+	note.save();
+
+	response.json(note);
+
 })
 
 const unknownEndpoint = (request, response) => {
