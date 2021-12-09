@@ -21,13 +21,14 @@ const noteSchema = new mongoose.Schema({
   date: {
     type:Date,
     required:true,
-  }
-  // important: Boolean,
+  },
+  // _id: { type: mongoose.Schema.Types.ObjectId}
+  // _id: String
 })
 
 noteSchema.set('toJSON', {
   transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString()
+    returnedObject.id = returnedObject._id
     delete returnedObject._id
     delete returnedObject.__v
   }

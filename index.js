@@ -36,7 +36,7 @@ app.get('/api/notes', (request, response) => {
   })
 })
 
-app.post('/api/notes', (request, response) => {
+app.post('/api/notes', (request, response, next) => {
   const body = request.body
   if (body.content === undefined) {
     return response.status(400).json({ error: 'content missing' })
@@ -72,12 +72,16 @@ app.get('/api/notes/:id', (request, response, next) => {
     })
 })
 
-app.delete('/api/notes/:id', (request, response, next) => {
-  Note.findByIdAndRemove(request.params.id)
+app.delete('/api/notes/:id', async (request, response, next) => {
+  const id = request.params.id
+  // await Note.findByIdAndRemove(id).exec()
+  // response.send("item deleted")
+  Note.findByIdAndRemove(id).exec()
     .then(result => {
-      response.status(204).end()
+      response.send(`Deleted`).end()
     })
-    .catch(error => next(error))
+    .catch(error => next(`${error} : 'error here'`))
+// })
 })
 
 app.put('/api/notes/:id', (request, response, next) => {
