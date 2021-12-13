@@ -82,24 +82,24 @@ app.delete('/api/notes/:id', async (request, response, next) => {
 })
 
 app.put('/api/notes/:id', async (request, response, next) => {
-  // const body = request.body
+  const body = request.body
 
-  // const note = {
-  //   content: body.content,
-  // }
+  const note = {
+    content: body.content,
+  }
 
-  // Note.findByIdAndUpdate(request.params.id, note, { new: true })
-  //   .then(updatedNote => {
-  //     response.json(updatedNote)
-  //   })
-  //   .catch(error => next(error))
-  const note = await Note.findById(request.params.id);
+  Note.findByIdAndUpdate(request.params.id, note, { new: true })
+    .then(updatedNote => {
+      response.json(updatedNote)
+    })
+    .catch(error => next(error))
+  // const note = await Note.findByIdAndUpdate(request.params.id);
 
-	note.text = request.body.text;
+	// note.text = request.body.text;
 
-	note.save();
+	// note.save();
 
-	response.json(note);
+	// response.json(note);
 
 })
 
